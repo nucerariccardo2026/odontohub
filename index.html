@@ -439,7 +439,7 @@ footer .f-contact svg{width:17px;height:17px;stroke:var(--blue);flex-shrink:0;ma
           <li>Perché il metodo OdontoHub costa meno dei consulenti tradizionali</li>
           <li>Come prenotare la prova gratuita in studio</li>
         </ul>
-        <form id="guideForm" class="guide-form" action="IL_TUO_SCRIPT_URL" method="POST">
+        <form id="guideForm" class="guide-form" action="https://script.google.com/macros/s/AKfycbxYxT727Xq3VSJiKpEH1ewTxKN2v_FQxKDfyEgTLRa63qeWtMbsN9jV_o5STq8A9PPh/exec" method="POST">
           <h4>📥 Scarica la guida gratuita</h4>
           <p>Lascia nome ed email: ti arriva subito il link, e restiamo in contatto per la prova gratuita in studio.</p>
           <div class="form-row">
@@ -494,7 +494,7 @@ footer .f-contact svg{width:17px;height:17px;stroke:var(--blue);flex-shrink:0;ma
           <div><a href="https://instagram.com/odontohub_it" target="_blank" rel="noopener">@odontohub_it</a><small>Seguici per consigli e aggiornamenti</small></div>
         </div>
       </div>
-      <form id="contactForm" action="IL_TUO_SCRIPT_URL" method="POST" novalidate>
+      <form id="contactForm" action="https://script.google.com/macros/s/AKfycbxYxT727Xq3VSJiKpEH1ewTxKN2v_FQxKDfyEgTLRa63qeWtMbsN9jV_o5STq8A9PPh/exec" method="POST" novalidate>
         <input type="hidden" name="tipo" value="contatto">
         <div class="form-row">
           <div class="form-group">
@@ -635,19 +635,12 @@ async function inviaAlScript(form, btn, okMsgId, extra) {
   }
 }
 
-// Form guida: download immediato + bozza email precompilata (cliente preme solo "Invia")
-document.getElementById('guideForm').addEventListener('submit', function(e){
+// Form guida: invio allo script Google (mail automatica a te) + download PDF
+document.getElementById('guideForm').addEventListener('submit', async function(e){
   e.preventDefault();
-  const nome = document.getElementById('g-nome').value;
-  const email = document.getElementById('g-email').value;
-  // 1. Il download parte subito
-  window.open('guida-10-errori-odontohub.pdf', '_blank');
-  // 2. Bozza email già compilata: il cliente tocca solo "Invia"
-  const subject = encodeURIComponent('Download guida OdontoHub — ' + nome);
-  const body = encodeURIComponent('Ho scaricato la guida dal sito.\n\nNome: ' + nome + '\nEmail: ' + email + '\n\nContattatemi per la prova gratuita in studio.');
-  setTimeout(() => { window.location.href = 'mailto:info@odontohub.it?subject=' + subject + '&body=' + body; }, 800);
-  document.getElementById('guideSuccess').style.display = 'block';
-  this.reset();
+  const form = e.target, btn = form.querySelector('button[type="submit"]');
+  const ok = await inviaAlScript(form, btn, 'guideSuccess');
+  if (ok) setTimeout(() => { window.open('guida-10-errori-odontohub.pdf', '_blank'); }, 1200);
 });
 
 // Form contatti: invio richiesta
@@ -655,7 +648,7 @@ document.getElementById('contactForm').addEventListener('submit', async function
   e.preventDefault();
   const form = e.target, btn = form.querySelector('button[type="submit"]');
   const v = id => document.getElementById(id).value;
-  if (form.getAttribute('action').includes('IL_TUO_SCRIPT_URL')) {
+  if (form.getAttribute('action').includes('https://script.google.com/macros/s/AKfycbxYxT727Xq3VSJiKpEH1ewTxKN2v_FQxKDfyEgTLRa63qeWtMbsN9jV_o5STq8A9PPh/exec')) {
     // Fallback mailto finché non inserisci il tuo URL
     const subject = encodeURIComponent('Richiesta dal sito OdontoHub — ' + v('interesse'));
     const body = encodeURIComponent('Nome: ' + v('nome') + '\nStudio: ' + v('studio') + '\nEmail: ' + v('email') +
