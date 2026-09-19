@@ -440,8 +440,9 @@ footer .f-contact svg{width:17px;height:17px;stroke:var(--blue);flex-shrink:0;ma
           <li>Come prenotare la prova gratuita in studio</li>
         </ul>
         <form id="guideForm" class="guide-form" action="https://script.google.com/macros/s/AKfycbxYxT727Xq3VSJiKpEH1ewTxKN2v_FQxKDfyEgTLRa63qeWtMbsN9jV_o5STq8A9PPh/exec" method="POST">
+          <input type="hidden" name="guida" value="10 Errori che Appesantiscono la Tua Clinica">
           <h4>📥 Scarica la guida gratuita</h4>
-          <p>Lascia nome ed email: ti arriva subito il link, e restiamo in contatto per la prova gratuita in studio.</p>
+          <p>Compila e ricevi subito il PDF: ti arriva anche via email.</p>
           <div class="form-row">
             <div class="form-group" style="margin-bottom:0">
               <label for="g-nome">Nome e cognome *</label>
@@ -452,8 +453,15 @@ footer .f-contact svg{width:17px;height:17px;stroke:var(--blue);flex-shrink:0;ma
               <input type="email" id="g-email" name="email" required placeholder="nome@studi.it">
             </div>
           </div>
-          <button type="submit" class="btn btn-primary" style="width:100%;margin-top:16px">Inviami la guida →</button>
-          <p style="font-size:.78rem;margin-top:10px">I dati vengono usati solo per inviarti la guida. <a href="privacy-policy.html">Privacy</a></p>
+          <div class="form-group" style="margin-top:14px;margin-bottom:0">
+            <label for="g-tel">Telefono *</label>
+            <input type="tel" id="g-tel" name="telefono" required placeholder="333 0000000">
+          </div>
+          <div class="form-group" style="margin-top:14px">
+            <label class="privacy-check"><input type="checkbox" required> <span>Ho letto e accetto la <a href="privacy-policy.html">Privacy Policy</a> *</span></label>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%">Inviami la guida →</button>
+          <p style="font-size:.78rem;margin-top:10px">I dati vengono usati solo per inviarti la guida e ricontattarti.</p>
           <div class="guide-success" id="guideSuccess">✓ Fatto! Controlla la tua email — la guida sta arrivando.</div>
         </form>
       </div>
