@@ -91,6 +91,7 @@ footer a{color:#8ba3b8;text-decoration:none}
           <li>Perché costiamo meno dei consulenti tradizionali</li>
         </ul>
         <form id="guideForm" action="https://script.google.com/macros/s/AKfycbxYxT727Xq3VSJiKpEH1ewTxKN2v_FQxKDfyEgTLRa63qeWtMbsN9jV_o5STq8A9PPh/exec" method="POST">
+          <input type="text" name="sito_web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;top:-9999px;height:0;width:0;opacity:0" aria-hidden="true">
           <input type="hidden" name="guida" value="10 Errori che Appesantiscono la Tua Clinica">
           <label for="g-nome">Nome e cognome *</label>
           <input type="text" id="g-nome" name="nome" required placeholder="Dr. Rossi">
@@ -104,8 +105,9 @@ footer a{color:#8ba3b8;text-decoration:none}
           </label>
           <button type="submit">Inviami la guida →</button>
           <p class="note">I dati servono solo per inviarti la guida e ricontattarti.</p>
-          <div class="ok" id="guideSuccess">✓ Fatto! Il PDF si sta aprendo — controlla anche la tua email.</div>
+          <div class="ok" id="guideSuccess">✓ Codice corretto! Il PDF si sta aprendo — controlla anche la tua email.</div>
         </form>
+
       </div>
     </div>
   </div>
@@ -143,11 +145,11 @@ if (fabBtn) {
 
 document.getElementById('guideForm').addEventListener('submit', async function(e){
   e.preventDefault();
-  const form = e.target, btn = form.querySelector('button');
+  const form = e.target, btn = form.querySelector('button[type="submit"]');
   btn.disabled = true; btn.textContent = 'Invio in corso\u2026';
   try {
     const params = new URLSearchParams(new FormData(form));
-    await fetch(form.action, { method:'POST', mode:'no-cors', body:params });
+    await fetch(form.action, { method:'POST', mode:'no-cors', body: params });
     document.getElementById('guideSuccess').style.display = 'block';
     form.reset();
     btn.textContent = '\u2713 Inviato';
